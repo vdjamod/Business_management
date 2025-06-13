@@ -27,7 +27,7 @@ function Owner() {
       // const token = localStorage.getItem("token");
 
       try {
-        const response = await axios.get(`/API/owner`, {
+        const response = await axios.get(`https://business-management-backend-ghf2.onrender.com/owner`, {
           withCredentials: true,
         });
         const data = response.data;
@@ -37,7 +37,7 @@ function Owner() {
         if (data.businessid) {
           // localStorage.setItem("bid", data.businessid);
           const businessResponse = await axios.get(
-            `${Backend}/API/owner/business/data/${data.businessid}/`,
+            `${Backend}https://business-management-backend-ghf2.onrender.com/owner/business/data/${data.businessid}/`,
             {
               headers: { Authorization: `${token}` },
             }

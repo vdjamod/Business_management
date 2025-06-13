@@ -11,7 +11,7 @@ function Business() {
     async function getData() {
       try {
         const res = await axios.get(
-          `/API/owner/business/${bid}/view`,
+          `https://business-management-backend-ghf2.onrender.com/owner/business/${bid}/view`,
           { withCredentials: true }
         );
 

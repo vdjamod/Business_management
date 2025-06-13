@@ -10,7 +10,7 @@ function Employee() {
 
   useEffect(() => {
     async function getData() {
-      const res = await axios.get(`/API/employee/${eid}`, {
+      const res = await axios.get(`https://business-management-backend-ghf2.onrender.com/employee/${eid}`, {
         withCredentials: true,
       });
 

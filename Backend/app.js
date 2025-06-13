@@ -41,7 +41,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(methodOverride("_method"));
 
 const corsOptions = {
-  origin: "https://business-management-frontend.onrender.com",
+  origin: "https://main.d1xge90a26x9og.amplifyapp.com",
   methods: ["GET", "POST", "PUT", "PATCH", "DELETE"],
   credentials: true,
 };

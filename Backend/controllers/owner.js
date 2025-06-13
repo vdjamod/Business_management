@@ -58,6 +58,7 @@ export const updateOwner = async (req, res) => {
 };
 
 export const registration = async (req, res) => {
+  console.log("first");
   const data = req.body;
   const oldOwner = await Owner.findOne({ email: data.email });
 
@@ -67,7 +68,7 @@ export const registration = async (req, res) => {
     let owner = new Owner(req.body);
     owner.password = encryptPassword(data.password);
 
-    const token = sendToken(owner._id, data.email, "owner", 'all');
+    const token = sendToken(owner._id, data.email, "owner", "all");
     res.cookie("token", token, {
       httpOnly: true,
       maxAge: 24 * 60 * 60 * 1000,

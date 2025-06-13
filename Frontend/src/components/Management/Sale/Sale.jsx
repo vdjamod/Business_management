@@ -31,7 +31,7 @@ function Sale() {
   useEffect(() => {
     async function getData() {
       const res = await axios.get(
-        `/API/owner/business/${bid}/manage/sale/getHistory`,
+        `https://business-management-backend-ghf2.onrender.com/owner/business/${bid}/manage/sale/getHistory`,
         {
           withCredentials: true,
         }
@@ -60,7 +60,7 @@ function Sale() {
 
       async function filterSale() {
         const res = await axios.get(
-          `/API/owner/business/${bid}/manage/sale/filter`,
+          `https://business-management-backend-ghf2.onrender.com/owner/business/${bid}/manage/sale/filter`,
           {
             params: { startDate, endDate },
             withCredentials: true,

@@ -18,7 +18,7 @@ export default function ProductInputForm() {
   useEffect(() => {
     async function getData() {
       const res = await axios.get(
-        `/API/owner/business/${bid}/manage/product/${pdctid}`,
+        `https://business-management-backend-ghf2.onrender.com/owner/business/${bid}/manage/product/${pdctid}`,
         {
           withCredentials: true,
         }
@@ -41,7 +41,7 @@ export default function ProductInputForm() {
     price = Number(price);
 
     const res = await axios.put(
-      `/API/owner/business/${bid}/manage/product/${pdctid}`,
+      `https://business-management-backend-ghf2.onrender.com/owner/business/${bid}/manage/product/${pdctid}`,
       {
         name,
         revenue,

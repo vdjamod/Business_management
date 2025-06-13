@@ -19,7 +19,7 @@ export default function OwnerRegistration() {
 
   const handleRegister = async (data) => {
     const res = await axios.post(
-      `/API/owner/registration`,
+      `https://business-management-backend-ghf2.onrender.com/owner/registration`,
       data,
       {
         withCredentials: true,

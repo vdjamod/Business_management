@@ -15,7 +15,7 @@ export default function BussinessInputForm() {
 
   const handleBusiness = async (data) => {
     const res = await axios.post(
-      `/API/owner/business/new`,
+      `https://business-management-backend-ghf2.onrender.com/owner/business/new`,
       data,
       {
         withCredentials: true,

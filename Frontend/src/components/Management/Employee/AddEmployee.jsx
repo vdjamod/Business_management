@@ -22,7 +22,7 @@ export default function AddEmployee() {
     formData.append("data", JSON.stringify(data));
 
     const res = await axios.post(
-      `/API/owner/business/${bid}/manage/employee/new`,
+      `https://business-management-backend-ghf2.onrender.com/owner/business/${bid}/manage/employee/new`,
       formData,
       {
         withCredentials: true,
