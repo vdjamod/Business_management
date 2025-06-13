@@ -20,7 +20,7 @@ function BusinessEdit() {
   useEffect(() => {
     async function getData() {
       const res = await axios.get(
-        `http://localhost:3000/owner/business/${bid}`,
+        `/API/owner/business/${bid}`,
         {
           withCredentials: true,
         }
@@ -37,7 +37,7 @@ function BusinessEdit() {
     const { name, assets, haveEquity, description } = data;
 
     const res = await axios.post(
-      `http://localhost:3000/owner/business/${bid}`,
+      `/API/owner/business/${bid}`,
       {
         name,
         assets,

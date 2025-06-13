@@ -14,7 +14,7 @@ function EmployeeHeader({ employeeData }) {
 
   const handleLogout = async () => {
     try {
-      const res = await axios.get("http://localhost:3000/signout", {
+      const res = await axios.get("/API/signout", {
         withCredentials: true,
       });
 

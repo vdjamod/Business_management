@@ -27,7 +27,7 @@ function Owner() {
       // const token = localStorage.getItem("token");
 
       try {
-        const response = await axios.get(`http://localhost:3000/owner`, {
+        const response = await axios.get(`/API/owner`, {
           withCredentials: true,
         });
         const data = response.data;

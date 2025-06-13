@@ -43,7 +43,7 @@ function OTP() {
 
   const sendOTP = async () => {
     const res = await axios.post(
-      "http://localhost:3000/owner/send-mail",
+      "/API/owner/send-mail",
       {
         email,
       },
@@ -64,7 +64,7 @@ function OTP() {
 
   const verifyOTP = async () => {
     const res1 = await axios.post(
-      "http://localhost:3000/owner/verify-otp",
+      "/API/owner/verify-otp",
       {
         email,
         otp,

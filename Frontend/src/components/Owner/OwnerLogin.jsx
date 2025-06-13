@@ -19,7 +19,7 @@ export default function OwnerLogin() {
   const dispatch = useDispatch();
 
   const handleSignin = async (data) => {
-    const res = await axios.get("http://localhost:3000/owner/signin", {
+    const res = await axios.get("/API/owner/signin", {
       withCredentials: true,
       params: {
         email: data.email,

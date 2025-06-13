@@ -18,7 +18,7 @@ function OwnerEdit() {
 
   useEffect(() => {
     async function getData() {
-      const res = await axios.get("http://localhost:3000/owner", {
+      const res = await axios.get("/API/owner", {
         withCredentials: true,
       });
 
@@ -30,7 +30,7 @@ function OwnerEdit() {
   }, []);
 
   const updateOwner = async (data) => {
-    const res = await axios.post(`http://localhost:3000/owner/update`, data, {
+    const res = await axios.post(`/API/owner/update`, data, {
       withCredentials: true,
     });
 

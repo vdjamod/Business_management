@@ -10,7 +10,7 @@ function Employee() {
 
   useEffect(() => {
     async function getData() {
-      const res = await axios.get(`http://localhost:3000/employee/${eid}`, {
+      const res = await axios.get(`/API/employee/${eid}`, {
         withCredentials: true,
       });
 

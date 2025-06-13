@@ -20,7 +20,7 @@ export default function EmployeeLogin() {
 
   const handleSignin = async (data) => {
     const { email, password } = data;
-    const res = await axios.get("http://localhost:3000/employee/login", {
+    const res = await axios.get("/API/employee/login", {
       params: {
         email,
         password,

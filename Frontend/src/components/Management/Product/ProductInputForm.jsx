@@ -19,7 +19,7 @@ export default function ProductInputForm() {
     revenue = Number(revenue);
 
     const res = await axios.post(
-      `http://localhost:3000/owner/business/${bid}/manage/product/new`,
+      `/API/owner/business/${bid}/manage/product/new`,
       {
         name,
         price,

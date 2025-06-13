@@ -16,7 +16,7 @@ function Product() {
   useEffect(() => {
     async function getData() {
       const res = await axios.get(
-        `http://localhost:3000/owner/business/${bid}/manage/product`,
+        `/API/owner/business/${bid}/manage/product`,
         {
           withCredentials: true,
         }
@@ -39,7 +39,7 @@ function Product() {
 
   const deleteProduct = async () => {
     const res = await axios.delete(
-      `http://localhost:3000/owner/business/${bid}/manage/product/${productToDelete}`,
+      `/API/owner/business/${bid}/manage/product/${productToDelete}`,
       {
         withCredentials: true,
       }

@@ -19,7 +19,7 @@ function DaySaleInput() {
   async function getProducts() {
     try {
       const res = await axios.get(
-        `http://localhost:3000/owner/business/${bid}/manage/inventory/get-products`,
+        `/API/owner/business/${bid}/manage/inventory/get-products`,
         {
           withCredentials: true,
         }
@@ -55,7 +55,7 @@ function DaySaleInput() {
 
     try {
       const res = await axios.post(
-        `http://localhost:3000/owner/business/${bid}/manage/sale`,
+        `/API/owner/business/${bid}/manage/sale`,
         {
           quantity,
           history,

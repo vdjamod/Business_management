@@ -15,7 +15,7 @@ export default function BussinessInputForm() {
 
   const handleBusiness = async (data) => {
     const res = await axios.post(
-      `http://localhost:3000/owner/business/new`,
+      `/API/owner/business/new`,
       data,
       {
         withCredentials: true,

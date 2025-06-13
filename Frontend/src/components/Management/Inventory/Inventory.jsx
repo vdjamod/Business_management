@@ -25,7 +25,7 @@ function Inventory() {
   useEffect(() => {
     async function getData() {
       const res = await axios.get(
-        `http://localhost:3000/owner/business/${bid}/manage/inventory/get-products`,
+        `/API/owner/business/${bid}/manage/inventory/get-products`,
         {
           withCredentials: true,
         }
@@ -36,7 +36,7 @@ function Inventory() {
       }
 
       const res2 = await axios.get(
-        `http://localhost:3000/owner/business/${bid}/manage/inventory`,
+        `/API/owner/business/${bid}/manage/inventory`,
         {
           withCredentials: true,
         }
@@ -70,7 +70,7 @@ function Inventory() {
       }
       async function filterSale() {
         const res = await axios.get(
-          `http://localhost:3000/owner/business/${bid}/manage/inventory/filter`,
+          `/API/owner/business/${bid}/manage/inventory/filter`,
           {
             params: { startDate, endDate },
             withCredentials: true,

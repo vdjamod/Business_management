@@ -23,7 +23,7 @@ export default function EmployeeHome() {
 
   async function getData() {
     const res = await axios.get(
-      `http://localhost:3000/owner/business/${bid}/manage/employee`,
+      `/API/owner/business/${bid}/manage/employee`,
       {
         withCredentials: true,
       }
@@ -45,7 +45,7 @@ export default function EmployeeHome() {
 
   const deleteEmployee = async () => {
     const res = await axios.delete(
-      `http://localhost:3000/owner/business/${bid}/manage/employee/${employeeToDelete}`,
+      `/API/owner/business/${bid}/manage/employee/${employeeToDelete}`,
       {
         withCredentials: true,
       }

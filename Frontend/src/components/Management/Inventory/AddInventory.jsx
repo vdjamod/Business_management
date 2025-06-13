@@ -18,7 +18,7 @@ function AddInventory() {
   async function getProducts() {
     try {
       const res = await axios.get(
-        `http://localhost:3000/owner/business/${bid}/manage/inventory/get-products`,
+        `/API/owner/business/${bid}/manage/inventory/get-products`,
         {
           withCredentials: true,
         }
@@ -47,7 +47,7 @@ function AddInventory() {
 
     try {
       const res = await axios.post(
-        `http://localhost:3000/owner/business/${bid}/manage/inventory`,
+        `/API/owner/business/${bid}/manage/inventory`,
         {
           quantity,
           history,

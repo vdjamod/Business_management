@@ -13,7 +13,7 @@ function Analyse() {
     async function getData() {
       try {
         const res1 = await axios.get(
-          `http://localhost:3000/owner/business/${bid}/manage/inventory/get-products`,
+          `/API/owner/business/${bid}/manage/inventory/get-products`,
           {
             withCredentials: true,
           }
@@ -26,7 +26,7 @@ function Analyse() {
 
       try {
         const res = await axios.get(
-          `http://localhost:3000/owner/business/${bid}/manage/product`,
+          `/API/owner/business/${bid}/manage/product`,
           {
             withCredentials: true,
           }
@@ -38,7 +38,7 @@ function Analyse() {
       }
 
       // const res = await axios.get(
-      //   `http://localhost:3000/owner/business/${bid}/sale/turnover`,
+      //   `/API/owner/business/${bid}/sale/turnover`,
       //   {
       //     withCredentials: true,
       //   }

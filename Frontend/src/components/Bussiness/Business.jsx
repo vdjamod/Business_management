@@ -11,7 +11,7 @@ function Business() {
     async function getData() {
       try {
         const res = await axios.get(
-          `http://localhost:3000/owner/business/${bid}/view`,
+          `/API/owner/business/${bid}/view`,
           { withCredentials: true }
         );
 

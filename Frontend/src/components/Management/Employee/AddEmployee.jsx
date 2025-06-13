@@ -22,7 +22,7 @@ export default function AddEmployee() {
     formData.append("data", JSON.stringify(data));
 
     const res = await axios.post(
-      `http://localhost:3000/owner/business/${bid}/manage/employee/new`,
+      `/API/owner/business/${bid}/manage/employee/new`,
       formData,
       {
         withCredentials: true,
