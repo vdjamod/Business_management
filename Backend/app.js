@@ -41,7 +41,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(methodOverride("_method"));
 
 const corsOptions = {
-  origin: "http://localhost:5173",
+  origin: "https://business-management-frontend.onrender.com",
   methods: ["GET", "POST", "PUT", "PATCH", "DELETE"],
   credentials: true,
 };
