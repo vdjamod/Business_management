@@ -1,0 +1,182 @@
+import axios from "axios";
+import { useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
+import { useForm } from "react-hook-form";
+
+export default function ProductInputForm() {
+  let { id, bid, pdctid } = useParams();
+  const [product, setProduct] = useState({});
+  const navigate = useNavigate();
+
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors },
+  } = useForm();
+
+  useEffect(() => {
+    async function getData() {
+      const res = await axios.get(
+        `http://localhost:3000/owner/business/${bid}/manage/product/${pdctid}`,
+        {
+          withCredentials: true,
+        }
+      );
+
+      console.log(res.data);
+
+      if (res.data.isToken) {
+        setProduct(res.data.product);
+        reset(res.data.product);
+      }
+    }
+    getData();
+  }, []);
+
+  const updateProduct = async (data) => {
+    let { name, revenue, price, description } = data;
+
+    revenue = Number(revenue);
+    price = Number(price);
+
+    const res = await axios.put(
+      `http://localhost:3000/owner/business/${bid}/manage/product/${pdctid}`,
+      {
+        name,
+        revenue,
+        price,
+        description,
+      },
+      {
+        withCredentials: true,
+      }
+    );
+
+    if (res.data.isToken) {
+      navigate(`/owner/business/${bid}/manage/product`);
+    }
+  };
+
+  return (
+    <>
+      <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
+        <div className="sm:mx-auto sm:w-full sm:max-w-sm">
+          <h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
+            Edit Product
+          </h2>
+        </div>
+
+        <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
+          <form className="space-y-6" onSubmit={handleSubmit(updateProduct)}>
+            {/* name */}
+            <div>
+              <label
+                htmlFor="name"
+                className="block text-sm font-medium leading-6 text-gray-900"
+              >
+                Name
+              </label>
+              <div className="mt-2">
+                <input
+                  defaultValue={product.name}
+                  id="name"
+                  name="name"
+                  type="text"
+                  {...register("name", { required: "name is required" })}
+                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                />
+                {errors.name && (
+                  <p className="text-red-500 text-sm mt-1">
+                    {errors.name.message}
+                  </p>
+                )}
+              </div>
+            </div>
+
+            {/* Price */}
+            <div>
+              <div className="flex items-center justify-between">
+                <label
+                  htmlFor="price"
+                  className="block text-sm font-medium leading-6 text-gray-900"
+                >
+                  price
+                </label>
+              </div>
+              <div className="mt-2">
+                <input
+                  defaultValue={product.price}
+                  id="price"
+                  type="number"
+                  {...register("price", { required: "price is required" })}
+                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                />
+                {errors.price && (
+                  <p className="text-red-500 text-sm mt-1">
+                    {errors.price.message}
+                  </p>
+                )}
+              </div>
+            </div>
+
+            {/* Revenue */}
+            <div>
+              <label
+                htmlFor="revenue"
+                className="block text-sm font-medium leading-6 text-gray-900"
+              >
+                Revenue
+              </label>
+              <div className="mt-2">
+                <input
+                  defaultValue={product.revenue}
+                  id="revenue"
+                  name="revenue"
+                  type="number"
+                  autoComplete="revenue"
+                  {...register("revenue", { required: "revenue is required" })}
+                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                />
+                {errors.revenue && (
+                  <p className="text-red-500 text-sm mt-1">
+                    {errors.revenue.message}
+                  </p>
+                )}
+              </div>
+            </div>
+
+            {/* Description */}
+            <div>
+              <label
+                htmlFor="description"
+                className="block text-sm font-medium leading-6 text-gray-900"
+              >
+                Description
+              </label>
+              <div className="mt-2">
+                <textarea
+                  defaultValue={product.description}
+                  id="description"
+                  cols="44"
+                  rows="4"
+                  {...register("description")}
+                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                ></textarea>
+              </div>
+            </div>
+
+            <div>
+              <button
+                type="submit"
+                className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+              >
+                Edit
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </>
+  );
+}
