@@ -67,6 +67,10 @@ app.get("/signout", async (req, res) => {
   res.send("Cookie removed successfully");
 });
 
+app.get("/", (req, res) => {
+  res.send("Server is running...");
+});
+
 app.listen(port, () => {
   console.log(`server is on port ${port}`);
 });
