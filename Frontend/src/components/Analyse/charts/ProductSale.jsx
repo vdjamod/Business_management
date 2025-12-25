@@ -18,7 +18,7 @@ function ProductSale({ Data }) {
 
   let mcostObject = {
     data: [],
-    label: "Manufacturing Cost",
+    label: "Cost",
   };
 
   Data.map((pdct) => {

@@ -20,7 +20,7 @@ function BusinessEdit() {
   useEffect(() => {
     async function getData() {
       const res = await axios.get(
-        `https://business-management-backend-ghf2.onrender.com/owner/business/${bid}`,
+        `http://localhost:3000/owner/business/${bid}`,
         {
           withCredentials: true,
         }
@@ -37,7 +37,7 @@ function BusinessEdit() {
     const { name, assets, haveEquity, description } = data;
 
     const res = await axios.post(
-      `https://business-management-backend-ghf2.onrender.com/owner/business/${bid}`,
+      `http://localhost:3000/owner/business/${bid}`,
       {
         name,
         assets,
@@ -50,7 +50,7 @@ function BusinessEdit() {
     );
 
     if (res.data.success) {
-      navigate("/owner");
+      navigate(-1);
     }
   };
 

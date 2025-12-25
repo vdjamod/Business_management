@@ -15,7 +15,7 @@ export default function BussinessInputForm() {
 
   const handleBusiness = async (data) => {
     const res = await axios.post(
-      `https://business-management-backend-ghf2.onrender.com/owner/business/new`,
+      `http://localhost:3000/owner/business/new`,
       data,
       {
         withCredentials: true,
@@ -23,7 +23,7 @@ export default function BussinessInputForm() {
     );
 
     if (res.data.success) {
-      navigate(`/owner`);
+      navigate(-1);
     }
   };
 

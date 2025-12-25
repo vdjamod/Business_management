@@ -16,7 +16,7 @@ function Product() {
   useEffect(() => {
     async function getData() {
       const res = await axios.get(
-        `https://business-management-backend-ghf2.onrender.com/owner/business/${bid}/manage/product`,
+        `http://localhost:3000/owner/business/${bid}/manage/product`,
         {
           withCredentials: true,
         }
@@ -39,7 +39,7 @@ function Product() {
 
   const deleteProduct = async () => {
     const res = await axios.delete(
-      `https://business-management-backend-ghf2.onrender.com/owner/business/${bid}/manage/product/${productToDelete}`,
+      `http://localhost:3000/owner/business/${bid}/manage/product/${productToDelete}`,
       {
         withCredentials: true,
       }
@@ -95,7 +95,7 @@ function Product() {
                   <div className="text-gray-700 text-sm space-y-1 mb-4">
                     <p className="flex items-center gap-1">
                       <FaRupeeSign className="text-gray-500" size={14} />
-                      <span className="font-medium">Cost:</span> ₹{post.price}
+                      <span className="font-medium">Price:</span> ₹{post.price}
                     </p>
                     <p className="flex items-center gap-1">
                       <FaRupeeSign className="text-gray-500" size={14} />

@@ -19,7 +19,7 @@ export default function ProductInputForm() {
     revenue = Number(revenue);
 
     const res = await axios.post(
-      `https://business-management-backend-ghf2.onrender.com/owner/business/${bid}/manage/product/new`,
+      `http://localhost:3000/owner/business/${bid}/manage/product/new`,
       {
         name,
         price,
@@ -32,7 +32,7 @@ export default function ProductInputForm() {
     );
 
     if (res.data.status) {
-      navigate(`/owner/business/${bid}/manage/product`);
+      navigate(-1);
     }
   };
 

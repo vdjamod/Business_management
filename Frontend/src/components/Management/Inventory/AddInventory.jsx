@@ -7,8 +7,7 @@ function AddInventory() {
   const { bid } = useParams();
   const [allProducts, setAllProducts] = useState([]);
   const navigate = useNavigate();
-  const location = useLocation();
-
+  
   const {
     register,
     handleSubmit,
@@ -18,7 +17,7 @@ function AddInventory() {
   async function getProducts() {
     try {
       const res = await axios.get(
-        `https://business-management-backend-ghf2.onrender.com/owner/business/${bid}/manage/inventory/get-products`,
+        `http://localhost:3000/owner/business/${bid}/manage/inventory/get-products`,
         {
           withCredentials: true,
         }
@@ -47,7 +46,7 @@ function AddInventory() {
 
     try {
       const res = await axios.post(
-        `https://business-management-backend-ghf2.onrender.com/owner/business/${bid}/manage/inventory`,
+        `http://localhost:3000/owner/business/${bid}/manage/inventory`,
         {
           quantity,
           history,
@@ -58,9 +57,7 @@ function AddInventory() {
       );
 
       if (res.data.status) {
-        const currPath = location.pathname;
-        const newPath = currPath.replace(/\/add$/, "");
-        navigate(newPath);
+        navigate(-1);
       }
     } catch (error) {
       console.log("Inventory Update failed", error);

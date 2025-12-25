@@ -23,7 +23,7 @@ export default function EmployeeHome() {
 
   async function getData() {
     const res = await axios.get(
-      `https://business-management-backend-ghf2.onrender.com/owner/business/${bid}/manage/employee`,
+      `http://localhost:3000/owner/business/${bid}/manage/employee`,
       {
         withCredentials: true,
       }
@@ -45,7 +45,7 @@ export default function EmployeeHome() {
 
   const deleteEmployee = async () => {
     const res = await axios.delete(
-      `https://business-management-backend-ghf2.onrender.com/owner/business/${bid}/manage/employee/${employeeToDelete}`,
+      `http://localhost:3000/owner/business/${bid}/manage/employee/${employeeToDelete}`,
       {
         withCredentials: true,
       }

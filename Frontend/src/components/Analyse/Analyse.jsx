@@ -13,7 +13,7 @@ function Analyse() {
     async function getData() {
       try {
         const res1 = await axios.get(
-          `https://business-management-backend-ghf2.onrender.com/owner/business/${bid}/manage/inventory/get-products`,
+          `http://localhost:3000/owner/business/${bid}/manage/inventory/get-products`,
           {
             withCredentials: true,
           }
@@ -26,7 +26,7 @@ function Analyse() {
 
       try {
         const res = await axios.get(
-          `https://business-management-backend-ghf2.onrender.com/owner/business/${bid}/manage/product`,
+          `http://localhost:3000/owner/business/${bid}/manage/product`,
           {
             withCredentials: true,
           }
@@ -38,7 +38,7 @@ function Analyse() {
       }
 
       // const res = await axios.get(
-      //   `https://business-management-backend-ghf2.onrender.com/owner/business/${bid}/sale/turnover`,
+      //   `http://localhost:3000/owner/business/${bid}/sale/turnover`,
       //   {
       //     withCredentials: true,
       //   }
@@ -57,13 +57,13 @@ function Analyse() {
               <div className="bg-white rounded-lg shadow-lg p-6 hover:shadow-xl transition-shadow duration-300 overflow-hidden">
                 <ProductStock Data={productStock} />
                 <p className=" text-center text-gray-800 text-lg font-semibold">
-                  Current month product stock
+                  Products stock
                 </p>
               </div>
               <div className="bg-white rounded-lg shadow-lg p-6 hover:shadow-xl transition-shadow duration-300 overflow-hidden">
                 <ProductSale Data={productSale} />
                 <p className=" text-center text-gray-800 text-lg font-semibold">
-                  Product Manufacturing Per Month
+                  Products detail
                 </p>
               </div>
             </div>

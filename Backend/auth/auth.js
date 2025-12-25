@@ -56,10 +56,6 @@ export const verifyToken = (req, res, next) => {
 
 export default function verifyRole(role, workpage) {
   return (req, res, next) => {
-    console.log(req.workpage);
-    console.log(workpage);
-    console.log(role);
-    console.log(req.role);
     if (!req.role) {
       res.send({ success: false, message: "User NOT Found" });
     }
