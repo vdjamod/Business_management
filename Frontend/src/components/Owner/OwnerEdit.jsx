@@ -18,7 +18,7 @@ function OwnerEdit() {
 
   useEffect(() => {
     async function getData() {
-      const res = await axios.get("http://localhost:3000/owner", {
+      const res = await axios.get("https://business-management-backend-ghf2.onrender.com/owner", {
         withCredentials: true,
       });
 
@@ -30,7 +30,7 @@ function OwnerEdit() {
   }, []);
 
   const updateOwner = async (data) => {
-    const res = await axios.post(`http://localhost:3000/owner/update`, data, {
+    const res = await axios.post(`https://business-management-backend-ghf2.onrender.com/owner/update`, data, {
       withCredentials: true,
     });
 

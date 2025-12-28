@@ -10,7 +10,7 @@ export default function EmployeeData() {
       console.log(empid);
 
       const res = await axios.get(
-        `http://localhost:3000/owner/manage/employee/${empid}`,
+        `https://business-management-backend-ghf2.onrender.com/owner/manage/employee/${empid}`,
         {
           withCredentials: true,
         }
@@ -140,7 +140,7 @@ export default function EmployeeData() {
             </form>
             <form
               method="post"
-              action={`http://localhost:3000/owner/manage/employee/${empid}?_method=DELETE`}
+              action={`https://business-management-backend-ghf2.onrender.com/owner/manage/employee/${empid}?_method=DELETE`}
             >
               <button
                 className="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded"

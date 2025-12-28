@@ -11,7 +11,7 @@ function OwnerHome() {
 
   useEffect(() => {
     async function getData() {
-      const res = await axios.get(`http://localhost:3000/owner/business`, {
+      const res = await axios.get(`https://business-management-backend-ghf2.onrender.com/owner/business`, {
         withCredentials: true,
       });
 
@@ -27,7 +27,7 @@ function OwnerHome() {
     console.log(businessId);
     try {
       const res = await axios.delete(
-        `http://localhost:3000/owner/business/${businessId}`,
+        `https://business-management-backend-ghf2.onrender.com/owner/business/${businessId}`,
         {
           withCredentials: true,
         }

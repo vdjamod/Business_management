@@ -17,7 +17,7 @@ function AddInventory() {
   async function getProducts() {
     try {
       const res = await axios.get(
-        `http://localhost:3000/owner/business/${bid}/manage/inventory/get-products`,
+        `https://business-management-backend-ghf2.onrender.com/owner/business/${bid}/manage/inventory/get-products`,
         {
           withCredentials: true,
         }
@@ -46,7 +46,7 @@ function AddInventory() {
 
     try {
       const res = await axios.post(
-        `http://localhost:3000/owner/business/${bid}/manage/inventory`,
+        `https://business-management-backend-ghf2.onrender.com/owner/business/${bid}/manage/inventory`,
         {
           quantity,
           history,
