@@ -23,6 +23,8 @@ export const signin = async (req, res) => {
   if (result) {
     res.cookie("token", token, {
       httpOnly: true,
+      secure: true,
+      sameSite: "None",
       maxAge: 24 * 60 * 60 * 1000,
     });
 
@@ -71,6 +73,8 @@ export const registration = async (req, res) => {
     const token = sendToken(owner._id, data.email, "owner", "all");
     res.cookie("token", token, {
       httpOnly: true,
+      secure: true,
+      sameSite: "None",
       maxAge: 24 * 60 * 60 * 1000,
     });
 
@@ -116,6 +120,8 @@ export const sendOTP = async (req, res) => {
 
     res.cookie("id", id, {
       httpOnly: true,
+      secure: true,
+      sameSite: "None",
       maxAge: 5 * 60 * 1000,
     });
 
