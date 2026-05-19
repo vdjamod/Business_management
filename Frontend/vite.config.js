@@ -6,7 +6,7 @@ export default defineConfig({
   server: {
     proxy: {
       "/API": {
-        target: "https://business-management-backend-ghf2.onrender.com",
+        target: "http://localhost:3000",
         changeOrigin: true,
         secure: false,
         rewrite: (path) => path.replace(/^\/API/, ""),

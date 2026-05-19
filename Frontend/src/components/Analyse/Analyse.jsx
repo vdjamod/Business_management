@@ -13,7 +13,7 @@ function Analyse() {
     async function getData() {
       try {
         const res1 = await axios.get(
-          `https://business-management-backend-ghf2.onrender.com/owner/business/${bid}/manage/inventory/get-products`,
+          `http://localhost:3000/owner/business/${bid}/manage/inventory/get-products`,
           {
             withCredentials: true,
           }
@@ -26,7 +26,7 @@ function Analyse() {
 
       try {
         const res = await axios.get(
-          `https://business-management-backend-ghf2.onrender.com/owner/business/${bid}/manage/product`,
+          `http://localhost:3000/owner/business/${bid}/manage/product`,
           {
             withCredentials: true,
           }
@@ -38,7 +38,7 @@ function Analyse() {
       }
 
       // const res = await axios.get(
-      //   `https://business-management-backend-ghf2.onrender.com/owner/business/${bid}/sale/turnover`,
+      //   `http://localhost:3000/owner/business/${bid}/sale/turnover`,
       //   {
       //     withCredentials: true,
       //   }

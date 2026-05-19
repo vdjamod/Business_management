@@ -18,7 +18,7 @@ function DaySaleInput() {
   async function getProducts() {
     try {
       const res = await axios.get(
-        `https://business-management-backend-ghf2.onrender.com/owner/business/${bid}/manage/inventory/get-products`,
+        `http://localhost:3000/owner/business/${bid}/manage/inventory/get-products`,
         {
           withCredentials: true,
         }
@@ -54,7 +54,7 @@ function DaySaleInput() {
 
     try {
       const res = await axios.post(
-        `https://business-management-backend-ghf2.onrender.com/owner/business/${bid}/manage/sale`,
+        `http://localhost:3000/owner/business/${bid}/manage/sale`,
         {
           quantity,
           history,

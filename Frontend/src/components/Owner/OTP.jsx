@@ -43,7 +43,7 @@ function OTP() {
 
   const sendOTP = async () => {
     const res = await axios.post(
-      "https://business-management-backend-ghf2.onrender.com/owner/send-mail",
+      "http://localhost:3000/owner/send-mail",
       {
         email,
       },
@@ -64,7 +64,7 @@ function OTP() {
 
   const verifyOTP = async () => {
     const res1 = await axios.post(
-      "https://business-management-backend-ghf2.onrender.com/owner/verify-otp",
+      "http://localhost:3000/owner/verify-otp",
       {
         email,
         otp,

@@ -13,7 +13,7 @@ function ForgetPassword() {
   const handleReset = async (event) => {
     event.preventDefault();
     const res = await axios.post(
-      `https://business-management-backend-ghf2.onrender.com/owner/reset-pass`,
+      `http://localhost:3000/owner/reset-pass`,
       {
         newPassword,
       },

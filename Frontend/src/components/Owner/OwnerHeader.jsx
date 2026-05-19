@@ -11,7 +11,7 @@ function OwnerHeader({ Businessid }) {
 
   const handleLogout = async () => {
     try {
-      const res = await axios.get("https://business-management-backend-ghf2.onrender.com/signout", {
+      const res = await axios.get("http://localhost:3000/signout", {
         withCredentials: true,
       });
       navigate("/");

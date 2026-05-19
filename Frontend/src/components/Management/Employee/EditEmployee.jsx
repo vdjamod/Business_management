@@ -23,7 +23,7 @@ export default function EditEmployee() {
   useEffect(() => {
     async function getData() {
       const res = await axios.get(
-        `https://business-management-backend-ghf2.onrender.com/owner/business/${bid}/manage/employee/${eid}`,
+        `http://localhost:3000/owner/business/${bid}/manage/employee/${eid}`,
         {
           withCredentials: true,
         }
@@ -48,7 +48,7 @@ export default function EditEmployee() {
     formData.append("data", JSON.stringify(data));
 
     const res = await axios.put(
-      `https://business-management-backend-ghf2.onrender.com/owner/business/${bid}/manage/employee/${eid}`,
+      `http://localhost:3000/owner/business/${bid}/manage/employee/${eid}`,
       formData,
       {
         withCredentials: true,

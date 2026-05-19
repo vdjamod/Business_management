@@ -16,7 +16,7 @@ function Product() {
   useEffect(() => {
     async function getData() {
       const res = await axios.get(
-        `https://business-management-backend-ghf2.onrender.com/owner/business/${bid}/manage/product`,
+        `http://localhost:3000/owner/business/${bid}/manage/product`,
         {
           withCredentials: true,
         }
@@ -39,7 +39,7 @@ function Product() {
 
   const deleteProduct = async () => {
     const res = await axios.delete(
-      `https://business-management-backend-ghf2.onrender.com/owner/business/${bid}/manage/product/${productToDelete}`,
+      `http://localhost:3000/owner/business/${bid}/manage/product/${productToDelete}`,
       {
         withCredentials: true,
       }

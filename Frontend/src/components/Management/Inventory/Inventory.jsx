@@ -25,7 +25,7 @@ function Inventory() {
   useEffect(() => {
     async function getData() {
       const res = await axios.get(
-        `https://business-management-backend-ghf2.onrender.com/owner/business/${bid}/manage/inventory/get-products`,
+        `http://localhost:3000/owner/business/${bid}/manage/inventory/get-products`,
         {
           withCredentials: true,
         }
@@ -36,7 +36,7 @@ function Inventory() {
       }
 
       const res2 = await axios.get(
-        `https://business-management-backend-ghf2.onrender.com/owner/business/${bid}/manage/inventory`,
+        `http://localhost:3000/owner/business/${bid}/manage/inventory`,
         {
           withCredentials: true,
         }
@@ -70,7 +70,7 @@ function Inventory() {
       }
       async function filterSale() {
         const res = await axios.get(
-          `https://business-management-backend-ghf2.onrender.com/owner/business/${bid}/manage/inventory/filter`,
+          `http://localhost:3000/owner/business/${bid}/manage/inventory/filter`,
           {
             params: { startDate, endDate },
             withCredentials: true,
