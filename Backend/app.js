@@ -30,7 +30,7 @@ async function main() {
 }
 
 // Redis connection
-connectRedis();
+// connectRedis();
 
 // Express
 const app = express();
@@ -41,7 +41,10 @@ app.use(express.urlencoded({ extended: true }));
 app.use(methodOverride("_method"));
 
 const corsOptions = {
-  origin: "https://business-management-frontend.onrender.com",
+  origin: [
+    "http://localhost:5173",
+    // "https://business-management-frontend.onrender.com",
+  ],
   methods: ["GET", "POST", "PUT", "PATCH", "DELETE"],
   credentials: true,
 };
