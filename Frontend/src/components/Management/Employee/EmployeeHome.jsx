@@ -11,6 +11,7 @@ import {
   EnvelopeIcon,
   PhoneIcon,
 } from "@heroicons/react/24/outline";
+import { EllipsisVerticalIcon } from "@heroicons/react/24/solid";
 
 export default function EmployeeHome() {
   const { id, bid } = useParams();
@@ -19,6 +20,7 @@ export default function EmployeeHome() {
   const [salaryFilter, setSalaryFilter] = useState({ min: "", max: "" });
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [employeeToDelete, setEmployeeToDelete] = useState(null);
+  const [openMenuId, setOpenMenuId] = useState(null);
   const navigate = useNavigate();
 
   async function getData() {
@@ -26,7 +28,7 @@ export default function EmployeeHome() {
       `http://localhost:3000/owner/business/${bid}/manage/employee`,
       {
         withCredentials: true,
-      }
+      },
     );
 
     if (res.data.isToken) {
@@ -43,17 +45,22 @@ export default function EmployeeHome() {
     navigate(`/owner/business/${bid}/manage/employee/${eid}/edit`);
   };
 
+  const handleView = (eid) => {
+    setOpenMenuId(null);
+    navigate(`/owner/business/${bid}/manage/employee/${eid}`);
+  };
+
   const deleteEmployee = async () => {
     const res = await axios.delete(
       `http://localhost:3000/owner/business/${bid}/manage/employee/${employeeToDelete}`,
       {
         withCredentials: true,
-      }
+      },
     );
 
     if (res.data.isToken) {
       setAllEmployee((prev) =>
-        prev.filter((emp) => emp._id !== employeeToDelete)
+        prev.filter((emp) => emp._id !== employeeToDelete),
       );
     }
   };
@@ -133,83 +140,117 @@ export default function EmployeeHome() {
             </button>
           </div>
 
-          {/* Employee Cards */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          {/* Employee List */}
+          <div className="bg-white rounded-lg shadow p-4">
+            <div className="flex items-center px-4 py-3 border-b border-gray-100 text-sm text-gray-500 font-medium">
+              <div className="w-1/3">Name & Role</div>
+              <div className="w-1/3">Contact Information</div>
+              <div className="w-1/6">Status</div>
+              <div className="w-1/6 text-right">Actions</div>
+            </div>
+
             {filteredEmployees.length > 0 &&
               filteredEmployees.map((employee) => (
                 <div
                   key={employee._id}
-                  className="bg-white rounded-2xl shadow-sm hover:shadow-lg transition p-6"
+                  className="flex items-center px-4 py-4 border-b last:border-b-0"
                 >
-                  {/* Top Section */}
-                  <div className="flex items-center gap-4 mb-4">
+                  <div className="w-1/3 flex items-center gap-4">
                     <img
-                      src={employee.img.secure_url || "/default-avatar.png"}
+                      src={employee.img?.secure_url || "/default-avatar.png"}
                       alt={employee.name}
-                      className="w-20 h-20 rounded-full object-cover border-2 border-gray-200"
+                      className="w-12 h-12 rounded-full object-cover border-2 border-gray-200"
                     />
                     <div>
-                      <h2 className="text-lg font-semibold text-gray-800">
+                      <div className="text-sm font-semibold text-gray-800">
                         {employee.name}
-                      </h2>a
-                      <div className="flex items-center text-sm text-gray-500 mt-1">
-                        <EnvelopeIcon className="h-4 w-4 mr-1" />
-                        {employee.email}
                       </div>
-                      <div className="flex items-center text-sm text-gray-500">
-                        <PhoneIcon className="h-4 w-4 mr-1" />
-                        {employee.mobileNumber}
+                      <div className="text-xs text-gray-500">
+                        @{employee.name?.toLowerCase?.().replace(/\s+/g, "")}
+                      </div>
+                      <div className="mt-1 inline-flex items-center gap-2 flex-wrap">
+                        <span className="text-xs bg-teal-50 text-teal-700 px-2 py-0.5 rounded-full">
+                          {employee.workpage}
+                        </span>
                       </div>
                     </div>
                   </div>
 
-                  {/* Info */}
-                  <div className="text-sm text-gray-700 space-y-1 mb-4 leading-relaxed">
-                    <p>
-                      <span className="font-medium text-gray-900">Salary:</span>{" "}
-                      ₹{employee.salary}
-                    </p>
-                    <p>
-                      <span className="font-medium text-gray-900">
-                        Address:
-                      </span>{" "}
-                      {employee.address}
-                    </p>
-                    <p>
-                      <span className="font-medium text-gray-900">
-                        Description:
-                      </span>{" "}
-                      {employee.description || "N/A"}
-                    </p>
-                    <p>
-                      <span className="font-medium text-gray-900">Role:</span>{" "}
-                      {employee.workpage}
-                    </p>
+                  <div className="w-1/3 text-sm text-gray-600">
+                    <div className="flex items-center gap-2">
+                      <EnvelopeIcon className="h-4 w-4 text-gray-400" />
+                      <span>{employee.email || "No email"}</span>
+                    </div>
+                    <div className="flex items-center gap-2 mt-2">
+                      <PhoneIcon className="h-4 w-4 text-gray-400" />
+                      <span>{employee.mobileNumber}</span>
+                    </div>
                   </div>
 
-                  {/* Actions */}
-                  <div className="flex justify-end gap-4 pt-3 border-t border-gray-200">
-                    <button
-                      onClick={(e) => handleUpdate(employee._id, e)}
-                      className="flex items-center gap-1 text-blue-600 hover:text-blue-800 font-medium transition"
-                    >
-                      <PencilSquareIcon className="h-4 w-4" />
-                      Edit
-                    </button>
-                    <button
-                      // onClick={() => handleDelete(employee._id)}
-                      onClick={() => {
-                        setEmployeeToDelete(employee._id);
-                        setIsModalOpen(true);
-                      }}
-                      className="flex items-center gap-1 text-red-600 hover:text-red-800 font-medium transition"
-                    >
-                      <TrashIcon className="h-4 w-4" />
-                      Delete
-                    </button>
+                  <div className="w-1/6 text-sm text-gray-600">
+                    <span className="inline-block text-xs bg-green-100 text-green-700 px-2 py-0.5 rounded-full">
+                      Active
+                    </span>
+                  </div>
+
+                  <div className="w-1/6 text-right">
+                    <div className="relative inline-block">
+                      <button
+                        onClick={() =>
+                          setOpenMenuId(
+                            openMenuId === employee._id ? null : employee._id,
+                          )
+                        }
+                        className="p-2 hover:bg-gray-100 rounded"
+                      >
+                        <EllipsisVerticalIcon className="h-5 w-5 text-gray-600" />
+                      </button>
+                      {openMenuId === employee._id && (
+                        <div className="absolute right-0 mt-1 w-40 bg-white border border-gray-200 rounded-lg shadow-lg z-10">
+                          <button
+                            onClick={() => handleView(employee._id)}
+                            className="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-blue-50 hover:text-blue-600 first:rounded-t-lg"
+                          >
+                            View Profile
+                          </button>
+                          <button
+                            onClick={() => {
+                              setOpenMenuId(null);
+                              handleUpdate(employee._id, {
+                                preventDefault: () => {},
+                              });
+                            }}
+                            className="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-blue-50 hover:text-blue-600"
+                          >
+                            Edit
+                          </button>
+                          <button
+                            onClick={() => {
+                              setOpenMenuId(null);
+                              setEmployeeToDelete(employee._id);
+                              setIsModalOpen(true);
+                            }}
+                            className="block w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-red-50 last:rounded-b-lg"
+                          >
+                            Delete
+                          </button>
+                        </div>
+                      )}
+                    </div>
                   </div>
                 </div>
               ))}
+
+            {allEmployee.length === 0 && (
+              <div className="text-center text-gray-500 py-8">
+                No employees found.
+              </div>
+            )}
+            {allEmployee.length > 0 && filteredEmployees.length === 0 && (
+              <div className="text-center text-gray-500 py-8">
+                No matching employee found.
+              </div>
+            )}
           </div>
 
           {/* Empty States */}

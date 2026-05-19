@@ -1,79 +1,119 @@
+import { FaFacebookF, FaLinkedinIn, FaInstagram } from "react-icons/fa";
+import { Link } from "react-router-dom";
+
 const currentYear = new Date().getFullYear();
-import "@fortawesome/fontawesome-free/css/all.min.css";
 
 function Footer() {
   return (
     <>
-      {/* Footer Section */}
-      <section className="footer1 mt-6 bg-gray-600 text-white py-8">
-        <div className="container mx-auto px-6 lg:px-16">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-12 text-center md:text-left">
-            {/* Column 1 */}
+      <section className="relative mt-14 md:mx-12">
+        <div className="absolute inset-0 -z-10 rounded-[2.5rem] bg-white/80 border border-white/70 shadow-card"></div>
+        <div className="section-shell py-10">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
             <div>
-              <h3 className="text-2xl font-semibold">About Us</h3>
-              <p className="text-sm mt-4 leading-relaxed">
-                We know that good management and smart analysis are essential
-                for succeeding in today’s complicated business world. Our
-                customized solutions help businesses make the best use of their
-                resources, streamline their processes, and use data to make
-                better decisions.
+              <h3 className="text-2xl font-semibold text-slate-900 mb-3">
+                BizVisionary
+              </h3>
+              <p className="text-sm text-slate-600 leading-relaxed">
+                BizVisionary helps teams optimize operations with data-driven
+                insights, unified workflows, and smart analytics designed for
+                modern businesses.
               </p>
-            </div>
-            {/* Column 2 */}
-            <div>
-              <h3 className="text-2xl font-semibold">Contact Us</h3>
-              <div className="mt-4 space-y-2">
-                <p className="text-sm">Ahmedabad</p>
-                <p className="text-sm">Phone: +91 9687975696</p>
-                <p className="text-sm">Email: info@bizvissionary.biz</p>
+              <div className="flex items-center gap-3 mt-6">
+                <a
+                  href="https://www.facebook.com/bizvisionary011"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-10 h-10 flex items-center justify-center bg-teal-600 text-white rounded-full hover:bg-teal-700 transition-colors"
+                >
+                  <FaFacebookF />
+                </a>
+                <a
+                  href="https://www.linkedin.com/in/bizvisionary011/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-10 h-10 flex items-center justify-center bg-slate-900 text-white rounded-full hover:bg-slate-800 transition-colors"
+                >
+                  <FaLinkedinIn />
+                </a>
+                <a
+                  href="https://www.instagram.com/bizvisionary011/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-10 h-10 flex items-center justify-center bg-amber-500 text-white rounded-full hover:bg-amber-650 transition-colors"
+                >
+                  <FaInstagram />
+                </a>
               </div>
             </div>
-            {/* Column 3 */}
+
             <div>
-              <h3 className="text-2xl font-semibold">Social Media</h3>
-              <ul className="flex justify-center md:justify-start space-x-6 mt-6">
-                <li>
-                  <a
-                    href="https://www.facebook.com/bizvisionary011"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="footer5 flex items-center justify-center w-10 h-10 bg-black text-white rounded-full hover:bg-blue-600 transition-colors"
-                  >
-                    <i className="fab fa-facebook-f"></i>
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href="https://www.linkedin.com/in/bizvisionary011/"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="footer5 flex items-center justify-center w-10 h-10 bg-black text-white rounded-full hover:bg-blue-700 transition-colors"
-                  >
-                    <i className="fab fa-linkedin"></i>
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href="https://www.instagram.com/bizvisionary011/"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="footer5 flex items-center justify-center w-10 h-10 bg-black text-white rounded-full hover:bg-pink-500 transition-colors"
-                  >
-                    <i className="fab fa-instagram"></i>
-                  </a>
-                </li>
-              </ul>
+              <h3 className="text-lg font-semibold text-slate-900 mb-4">
+                Contact
+              </h3>
+              <div className="text-sm text-slate-600 space-y-2">
+                <p>Ahmedabad, India</p>
+                <p>Phone: +91 81818 18181</p>
+                <p>Email: vipul.jamod@example.com</p>
+              </div>
+            </div>
+
+            <div>
+              <h3 className="text-lg font-semibold text-slate-900 mb-4">
+                Quick Links
+              </h3>
+              <div className="text-sm text-slate-600 space-y-2">
+                <Link
+                  to="/info"
+                  className="block hover:text-slate-900 transition-colors"
+                >
+                  Info Overview
+                </Link>
+                <Link
+                  to="/info/modules"
+                  className="block hover:text-slate-900 transition-colors"
+                >
+                  Module Directory
+                </Link>
+                <Link
+                  to="/info/support"
+                  className="block hover:text-slate-900 transition-colors"
+                >
+                  Support
+                </Link>
+                <Link
+                  to="/owner/register"
+                  className="block hover:text-slate-900 transition-colors"
+                >
+                  Get Started
+                </Link>
+              </div>
             </div>
           </div>
-        </div>
-      </section>
 
-      {/* Footer Bottom Section */}
-      <section className="footer1 bg-gray-800">
-        <div className="container mx-auto px-6 lg:px-16 text-center py-4">
-          <p className="text-white text-sm">
-            ©️ {currentYear} BizVisionary. All Rights Reserved.
-          </p>
+          <div className="mt-8 border-t border-slate-100 pt-6 flex flex-col md:flex-row items-center justify-between gap-4 text-xs text-slate-500">
+            <p>© {currentYear} BizVisionary. All Rights Reserved.</p>
+            <div className="flex items-center gap-4">
+              <Link
+                to="/info/support"
+                className="hover:text-slate-700 transition-colors"
+              >
+                Privacy
+              </Link>
+              <Link
+                to="/info/support"
+                className="hover:text-slate-700 transition-colors"
+              >
+                Terms
+              </Link>
+              <Link
+                to="/info/support"
+                className="hover:text-slate-700 transition-colors"
+              >
+                Status
+              </Link>
+            </div>
+          </div>
         </div>
       </section>
     </>

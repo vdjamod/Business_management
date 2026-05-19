@@ -17,16 +17,21 @@ export default function AddEmployee() {
     console.log(data);
     const formData = new FormData();
 
-    const arr = Array.from(data.file);
-    formData.append("file", arr[0]);
-    formData.append("data", JSON.stringify(data));
+    if (data.file && data.file.length > 0) {
+      const arr = Array.from(data.file);
+      formData.append("file", arr[0]);
+    }
+    // remove file from data before stringifying so FileList isn't serialized
+    const safeData = { ...data };
+    if (safeData.file) delete safeData.file;
+    formData.append("data", JSON.stringify(safeData));
 
     const res = await axios.post(
       `http://localhost:3000/owner/business/${bid}/manage/employee/new`,
       formData,
       {
         withCredentials: true,
-      }
+      },
     );
 
     if (res.data.isToken) {
@@ -46,14 +51,18 @@ export default function AddEmployee() {
         {/* Name */}
         <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
           <form className="space-y-6" onSubmit={handleSubmit(addEmployee)}>
-            <input
-              type="file"
-              accept=".jpg, .jpeg, .png"
-              {...register("file", { required: true })}
-            />
-            {errors.file && (
-              <p className="text-red-500 tex-sm mt-1">{errors.file.message}</p>
-            )}
+            <div>
+              <label className="block text-sm font-medium leading-6 text-gray-900">
+                Image (optional)
+              </label>
+              <div className="mt-2">
+                <input
+                  type="file"
+                  accept=".jpg, .jpeg, .png"
+                  {...register("file")}
+                />
+              </div>
+            </div>
             <div>
               <label
                 htmlFor="name"

@@ -38,13 +38,10 @@ export default function EditEmployee() {
   }, []);
 
   const updateProfile = async (data) => {
-    if (!data.file) {
-      data.file = employee.img;
+    if (data.file && data.file.length > 0) {
+      const fileArr = Array.from(data.file);
+      formData.append("file", fileArr[0]);
     }
-
-    const fileArr = Array.from(data.file);
-    console.log(data);
-    formData.append("file", fileArr[0]);
     formData.append("data", JSON.stringify(data));
 
     const res = await axios.put(

@@ -8,64 +8,77 @@ import {
   FaPhone, 
   FaInfoCircle, 
   FaBriefcase, 
-  FaMapMarkerAlt, 
-  FaEdit, 
-  FaTrash,
+  FaMapMarkerAlt,
   FaCalendarAlt
 } from "react-icons/fa";
-import GeneralModal from "../../Utils/GeneralModal";
 
-export default function EmployeeData() {
-  let { bid, eid } = useParams();
+export default function UserProfile() {
+  const { id } = useParams();
   const navigate = useNavigate();
-  const [employee, setEmployee] = useState({});
+  const [user, setUser] = useState(null);
+  const [type, setType] = useState(null);
   const [business, setBusiness] = useState({});
-  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
 
   useEffect(() => {
-    async function getData() {
-      const res = await axios.get(
-        `http://localhost:3000/owner/business/${bid}/manage/employee/${eid}`,
-        {
-          withCredentials: true,
-        }
-      );
-
-      const emp = res.data?.employee || res.data;
-      setEmployee(emp || {});
-
-      // Fetch business info to display dynamically
+    async function getUser() {
       try {
-        const bizRes = await axios.get(
-          `http://localhost:3000/owner/business/${bid}/view`,
-          {
-            withCredentials: true,
+        const res = await axios.get(`http://localhost:3000/employee/${id}`, {
+          withCredentials: true,
+        });
+        if (res.data?.success && res.data.employee) {
+          const emp = res.data.employee;
+          setUser(emp);
+          setType("employee");
+
+          // Dynamically fetch business info for this employee
+          if (emp.businessId) {
+            try {
+              const bizRes = await axios.get(
+                `http://localhost:3000/owner/business/${emp.businessId}/view`,
+                {
+                  withCredentials: true,
+                }
+              );
+              if (bizRes.data?.business) {
+                setBusiness(bizRes.data.business);
+              }
+            } catch (err) {
+              console.error(err);
+            }
           }
-        );
-        if (bizRes.data?.business) {
-          setBusiness(bizRes.data.business);
+          return;
         }
-      } catch (err) {
-        console.error("Failed to fetch business details", err);
+      } catch (e) {
+        console.error(e);
       }
-    }
-    if (bid && eid) getData();
-  }, [bid, eid]);
 
-  const handleDelete = async () => {
-    const res = await axios.delete(
-      `http://localhost:3000/owner/business/${bid}/manage/employee/${eid}`,
-      {
-        withCredentials: true,
-      }
+      setUser(null);
+      setType("unknown");
+    }
+
+    if (id) getUser();
+  }, [id]);
+
+  if (type === null) return null;
+
+  if (type === "unknown") {
+    return (
+      <div className="min-h-screen bg-slate-50/50 flex flex-col justify-center items-center font-sans">
+        <div className="bg-white rounded-3xl border border-slate-200 p-8 shadow-sm max-w-sm text-center">
+          <h2 className="text-xl font-black text-slate-900 mb-2">Profile Not Found</h2>
+          <p className="text-slate-500 text-sm mb-6">No user account was found matching the specified ID identifier.</p>
+          <button
+            onClick={() => navigate(-1)}
+            className="w-full bg-slate-900 text-white font-bold py-3 rounded-xl text-xs hover:bg-slate-800 transition-all duration-300"
+          >
+            Go Back
+          </button>
+        </div>
+      </div>
     );
-    setIsDeleteModalOpen(false);
-    if (res.data?.isToken || res.data?.success) {
-      navigate(-1);
-    }
-  };
+  }
 
-  // Get Initials for Avatar Fallback
+  // Get Initials for Fallback Avatar
   const getInitials = (name) => {
     if (!name) return "EE";
     const parts = name.split(" ");
@@ -75,7 +88,7 @@ export default function EmployeeData() {
     return name.substring(0, 2).toUpperCase();
   };
 
-  // Format creation and update dates
+  // Format Dates
   const formatDate = (dateStr) => {
     if (!dateStr) return "10 Mar 2026";
     const dateObj = new Date(dateStr);
@@ -98,39 +111,15 @@ export default function EmployeeData() {
   return (
     <>
       <div className="min-h-screen bg-slate-50/50 py-10 px-6 sm:px-12 font-sans text-slate-800">
-        <GeneralModal
-          open={isDeleteModalOpen}
-          setOpen={setIsDeleteModalOpen}
-          title="Remove Employee Account"
-          message="Are you sure you want to terminate this employee account? This action is permanent and cannot be undone."
-          onConfirm={handleDelete}
-          confirmText="Terminate"
-          cancelText="Cancel"
-        />
-
+        
         {/* Back Button */}
-        <div className="max-w-7xl mx-auto mb-6 flex justify-between items-center">
+        <div className="max-w-7xl mx-auto mb-6">
           <button
             onClick={() => navigate(-1)}
             className="inline-flex items-center gap-2 px-5 py-2.5 bg-white border border-slate-200/80 rounded-2xl text-xs font-bold text-slate-700 shadow-sm hover:bg-slate-50 transition-all duration-300"
           >
             <FaArrowLeft className="text-slate-500" /> Back
           </button>
-          
-          <div className="flex gap-3">
-            <button
-              onClick={() => navigate(`/owner/business/${bid}/manage/employee/${eid}/edit`)}
-              className="inline-flex items-center gap-2 px-5 py-2.5 bg-white border border-slate-200/80 rounded-2xl text-xs font-bold text-slate-700 shadow-sm hover:bg-slate-50 transition-all duration-300"
-            >
-              <FaEdit className="text-blue-500" /> Edit Account
-            </button>
-            <button
-              onClick={() => setIsDeleteModalOpen(true)}
-              className="inline-flex items-center gap-2 px-5 py-2.5 bg-white border border-rose-250 rounded-2xl text-xs font-bold text-rose-600 shadow-sm hover:bg-rose-50/40 transition-all duration-300"
-            >
-              <FaTrash /> Terminate
-            </button>
-          </div>
         </div>
 
         {/* Profile Card Header Container */}
@@ -138,22 +127,22 @@ export default function EmployeeData() {
           
           {/* Avatar and Primary Details */}
           <div className="flex flex-col sm:flex-row items-center sm:items-start gap-6 w-full lg:w-auto">
-            {employee.img?.secure_url ? (
+            {user?.img?.secure_url ? (
               <img
-                src={employee.img.secure_url}
-                alt={employee.name}
+                src={user.img.secure_url}
+                alt={user.name}
                 className="w-24 h-24 rounded-3xl object-cover border-4 border-slate-100/80 shadow-md shadow-slate-900/5 shrink-0"
               />
             ) : (
               <div className="w-24 h-24 bg-slate-900 text-white font-black flex items-center justify-center rounded-3xl text-2xl shrink-0 shadow-md shadow-slate-900/20">
-                {getInitials(employee.name)}
+                {getInitials(user?.name)}
               </div>
             )}
 
             <div className="text-center sm:text-left">
               <div className="flex items-center justify-center sm:justify-start gap-2.5">
                 <h1 className="text-2xl sm:text-3xl font-black text-slate-900 leading-tight">
-                  {employee.name}
+                  {user?.name}
                 </h1>
                 <FaCheckCircle className="text-emerald-500 text-lg sm:text-xl shrink-0" />
               </div>
@@ -161,21 +150,21 @@ export default function EmployeeData() {
               {/* Badges */}
               <div className="flex items-center justify-center sm:justify-start gap-2.5 mt-2.5">
                 <span className="bg-slate-100 text-slate-650 px-3 py-0.5 text-[9px] font-black uppercase tracking-wider rounded-md border border-slate-200/50">
-                  {employee.workpage || "Employee"}
+                  {user?.workpage || "Employee"}
                 </span>
                 <span className="bg-slate-50 border border-slate-100 text-slate-450 px-2.5 py-0.5 text-[9px] font-bold rounded-md">
-                  @{employee.name?.replace(/\s+/g, "").toLowerCase()}
+                  @{user?.name?.replace(/\s+/g, "").toLowerCase()}
                 </span>
               </div>
 
-              {/* Direct Details */}
+              {/* Contact Information */}
               <div className="flex flex-col sm:flex-row items-center gap-4 mt-5 text-xs text-slate-500 font-medium">
                 <span className="flex items-center gap-1.5 hover:text-slate-800 cursor-pointer transition-colors">
-                  <FaEnvelope className="text-slate-400" /> {employee.email}
+                  <FaEnvelope className="text-slate-400" /> {user?.email}
                 </span>
                 <span className="hidden sm:inline text-slate-300">|</span>
                 <span className="flex items-center gap-1.5 hover:text-slate-800 cursor-pointer transition-colors">
-                  <FaPhone className="text-slate-400" /> {employee.mobileNumber}
+                  <FaPhone className="text-slate-400" /> {user?.mobileNumber}
                 </span>
               </div>
             </div>
@@ -192,13 +181,13 @@ export default function EmployeeData() {
             {/* Joined */}
             <div className="flex justify-between items-center sm:justify-start lg:justify-between gap-6 bg-white border border-slate-200/70 rounded-2xl px-4 py-2 text-xs w-full sm:w-[180px] lg:w-[220px]">
               <span className="uppercase tracking-wider text-[9px] font-black text-slate-400">Joined</span>
-              <span className="font-bold text-slate-700">{formatDate(employee.createdAt)}</span>
+              <span className="font-bold text-slate-700">{formatDate(user?.createdAt)}</span>
             </div>
 
             {/* Updated */}
             <div className="flex justify-between items-center sm:justify-start lg:justify-between gap-6 bg-white border border-slate-200/70 rounded-2xl px-4 py-2 text-xs w-full sm:w-[200px] lg:w-[220px]">
               <span className="uppercase tracking-wider text-[9px] font-black text-slate-400">Updated</span>
-              <span className="font-bold text-slate-700">{formatDate(employee.updatedAt)}, {formatTime(employee.updatedAt)}</span>
+              <span className="font-bold text-slate-700">{formatDate(user?.updatedAt)}, {formatTime(user?.updatedAt)}</span>
             </div>
           </div>
 
@@ -223,31 +212,31 @@ export default function EmployeeData() {
               {/* Email Address */}
               <div className="bg-slate-50/50 border border-slate-100 rounded-2xl p-4.5">
                 <span className="block text-[9px] font-black text-slate-400 uppercase tracking-widest mb-1">Email Address</span>
-                <span className="text-slate-800 text-sm font-bold block truncate">{employee.email}</span>
+                <span className="text-slate-800 text-sm font-bold block truncate">{user?.email}</span>
               </div>
 
               {/* Phone Number */}
               <div className="bg-slate-50/50 border border-slate-100 rounded-2xl p-4.5">
                 <span className="block text-[9px] font-black text-slate-400 uppercase tracking-widest mb-1">Phone Number</span>
-                <span className="text-slate-800 text-sm font-bold block">{employee.mobileNumber}</span>
+                <span className="text-slate-800 text-sm font-bold block">{user?.mobileNumber}</span>
               </div>
 
               {/* Member Since */}
               <div className="bg-slate-50/50 border border-slate-100 rounded-2xl p-4.5">
                 <span className="block text-[9px] font-black text-slate-400 uppercase tracking-widest mb-1">Member Since</span>
-                <span className="text-slate-800 text-sm font-bold block">{formatDate(employee.createdAt)}</span>
+                <span className="text-slate-800 text-sm font-bold block">{formatDate(user?.createdAt)}</span>
               </div>
 
               {/* User ID */}
               <div className="bg-slate-50/50 border border-slate-100 rounded-2xl p-4.5">
                 <span className="block text-[9px] font-black text-slate-400 uppercase tracking-widest mb-1">User ID</span>
-                <span className="text-slate-800 text-sm font-black font-mono block">#{employee._id?.substring(0, 8) || "undefined"}</span>
+                <span className="text-slate-800 text-sm font-black font-mono block">#{user?._id?.substring(0, 8) || "undefined"}</span>
               </div>
 
               {/* Salary */}
               <div className="bg-slate-50/50 border border-slate-100 rounded-2xl p-4.5 sm:col-span-2">
                 <span className="block text-[9px] font-black text-slate-400 uppercase tracking-widest mb-1">Monthly Salary</span>
-                <span className="text-emerald-600 text-base font-black font-mono block">₹{employee.salary?.toLocaleString("en-IN") || "0"}</span>
+                <span className="text-emerald-600 text-base font-black font-mono block">₹{user?.salary?.toLocaleString("en-IN") || "0"}</span>
               </div>
             </div>
           </div>
@@ -267,18 +256,18 @@ export default function EmployeeData() {
             <div className="space-y-6">
               <div>
                 <span className="block text-[9px] font-black text-slate-400 uppercase tracking-widest mb-1">Company Name</span>
-                <span className="text-slate-900 text-base font-black block">{business.name || "N/A"}</span>
+                <span className="text-slate-900 text-base font-black block">{business?.name || "N/A"}</span>
               </div>
 
               <div>
                 <span className="block text-[9px] font-black text-slate-400 uppercase tracking-widest mb-1">Business ID</span>
-                <span className="text-slate-700 text-xs font-mono font-bold block">#{bid?.substring(bid.length - 8) || "N/A"}</span>
+                <span className="text-slate-700 text-xs font-mono font-bold block">#{user?.businessId?.substring(user.businessId.length - 8) || "N/A"}</span>
               </div>
 
               <div>
                 <span className="block text-[9px] font-black text-slate-400 uppercase tracking-widest mb-1">Description</span>
                 <span className="text-slate-500 text-xs font-semibold block leading-relaxed bg-slate-50/50 border border-slate-100 rounded-xl p-3 mt-1">
-                  {business.description || "No description provided."}
+                  {business?.description || "No description provided."}
                 </span>
               </div>
             </div>
@@ -302,7 +291,7 @@ export default function EmployeeData() {
               </div>
               <div>
                 <span className="block text-[9px] font-black text-slate-400 uppercase tracking-widest mb-1">Full Address</span>
-                <span className="text-slate-800 text-sm font-bold block">{employee.address || "N/A"}</span>
+                <span className="text-slate-800 text-sm font-bold block">{user?.address || "N/A"}</span>
               </div>
             </div>
           </div>

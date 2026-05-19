@@ -42,6 +42,8 @@ import Home from "./components/Utils/Home/Home.jsx";
 import PageNotFound from "./components/Utils/404PageNotFound.jsx";
 import AuthLayout from "./components/Utils/AuthLayout.jsx";
 import NeedAccess from "./components/Utils/NeedAccess.jsx";
+import UserProfile from "./components/Utils/UserProfile.jsx";
+import InvoiceManagement from "./components/Management/Invoice/InvoiceManagement.jsx";
 
 function App() {
   return (
@@ -276,7 +278,18 @@ function App() {
             }
           />
 
+          <Route
+            path="/owner/business/:bid/manage/invoice"
+            element={
+              <AuthLayout>
+                <InvoiceManagement />
+              </AuthLayout>
+            }
+          />
+          <Route path="/invoice" element={<InvoiceManagement />} />
+
           <Route path="*" element={<PageNotFound />} />
+          <Route path="/user/:id" element={<UserProfile />} />
         </Routes>
       </Router>
     </>

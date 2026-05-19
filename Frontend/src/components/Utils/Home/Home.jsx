@@ -3,7 +3,7 @@ import Header from "../Header";
 import HeroSection from "./HeroSection";
 import CallToAction from "./CallToAction";
 import FeaturesSection from "./FeaturesSection";
-import CTA_Sections from "./CTA_Sections";
+import HowItWorks from "./HowItWorks";
 
 export default function Home() {
   return (
@@ -14,17 +14,17 @@ export default function Home() {
       {/* Hero Section */}
       <HeroSection />
 
-      {/* Call-to-Action Section */}
-      <CallToAction
-        title="Why Choose BizVisionary?"
-        description="We provide real-time insights that help your business thrive. Whether you're looking to streamline operations or boost productivity, our platform is designed to meet your needs."
-      />
-
       {/* Features Section */}
       <FeaturesSection />
 
-      {/* Additional Call-to-Action Sections */}
-      <CTA_Sections />
+      {/* How It Works Section */}
+      <HowItWorks />
+
+      {/* Call-to-Action Section */}
+      <CallToAction
+        title="Ready to Transform Your Business?"
+        description="Join businesses who are already using Visionary to streamline their operations."
+      />
 
       {/* Footer */}
       <Footer />

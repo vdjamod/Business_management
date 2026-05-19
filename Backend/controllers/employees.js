@@ -27,11 +27,15 @@ export const showEmployee = async (req, res) => {
 export const createEmployee = async (req, res) => {
   const result = JSON.parse(req.body.data);
   let { bid } = req.params;
-  const uploadedFile = await uplaodOnCloudinary(req.file.path);
-  console.log(uploadedFile);
-
+  
   let newEmployee = new Employee(result);
-  newEmployee.img = uploadedFile;
+  
+  if (req.file) {
+    const uploadedFile = await uplaodOnCloudinary(req.file.path);
+    console.log(uploadedFile);
+    newEmployee.img = uploadedFile;
+  }
+  
   newEmployee.password = encryptPassword(result.password);
   newEmployee.businessId = bid;
   await newEmployee.save();

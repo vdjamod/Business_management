@@ -11,26 +11,21 @@ const employeeSchema = new Schema({
   img: {
     original_filename: {
       type: String,
-      required: true,
     },
     secure_url: {
       type: String,
-      required: true,
     },
     url: {
       type: String,
     },
     public_id: {
       type: String,
-      required: true,
     },
     bytes: {
       type: Number,
-      required: true,
     },
     format: {
       type: String,
-      required: true,
     },
     height: {
       type: Number,
@@ -74,7 +69,7 @@ const employeeSchema = new Schema({
     type: String,
     require: true,
   },
-});
+}, { timestamps: true });
 
 //collection name,it's Schema
 const Employee = mongoose.model("Employee", employeeSchema);
